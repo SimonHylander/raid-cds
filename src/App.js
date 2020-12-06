@@ -1,23 +1,30 @@
-import logo from './logo.svg';
+import React, {useState, useEffect} from 'react';
 import './App.css';
+import {Tabs} from './components/Tab/Tabs'
+import {Tab} from './components/Tab/Tab'
+import Roster from './Roster'
+import Calculator from './Calculator'
 
-function App() {
+const App = () => {
+  const [activeTab, setActiveTab] = useState('roster');
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="page-container">
+      <div className="container-fluid">
+        <div className="main">
+          <h1>Raid Cooldown Calculator</h1>
+
+          <Tabs activeKey={activeTab}>
+            <Tab tabKey="roster" title="Roster">
+              <Roster/>
+            </Tab>
+
+            <Tab tabKey="calculator" title="Calculator">
+              <Calculator/>
+            </Tab>
+          </Tabs>
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,38 +1,94 @@
-.App {
-  text-align: center;
+body {
+  background-color: #282c34;
+  color: #FFFFFF;
+  min-height: 100vh;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
+/*.App-header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: white;
+}*/
+
+h1 {
+  text-align: center;
 }
 
-.App-link {
-  color: #61dafb;
+.page-container {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 88rem;
+  padding: 2rem 4rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.table {
+  color: #FFF;
+}
+
+/*.panel {
+  position: relative;
+  margin-top: 2rem;
+  background-color: #232323;
+  border: 1px solid rgba(28,36,43,.6);
+  border-radius: 6px;
+  min-height: 25rem;
+}*/
+
+.nav-tabs {
+  border-bottom: 2px solid #413c4b !important;
+}
+
+.nav-tabs .nav-item .nav-link {
+  color: #FFFFFF !important;
+}
+
+.nav-tabs .nav-item .nav-link:hover {
+  color: #FFFFFF !important;
+  border-color: #413c4b !important;
+  cursor: pointer;
+}
+
+.nav-tabs .nav-item .active {
+  background-color: #413c4b !important;
+  border-color: #413c4b !important;
+}
+
+.tab-content .tab-pane {
+  padding: 1rem;
+}
+
+
+.class-table tbody tr td img {
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.class-table .class-name {
+  font-size: 18px;
+  display: inline-block;
+}
+
+.class-table .specialization {
+  position: relative;
+  display: inline-block;
+}
+
+.class-table .specialization-amount {
+  position: absolute;
+  left: 15px;
+  top: -10px;
+  font-size: 16px;
+  width: 1.5em;
+  height: 1.5em;
+  box-sizing: initial;
+  background-color: #000;
+  color: yellow;
+  text-align: center;
+  border-radius: 50%;
+  line-height: 1.5em;
+  box-sizing: content-box;
 }
