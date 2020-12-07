@@ -1,7 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react'
 import {getClasses, getToken} from './api/battlenet/'
 import {useDispatch, useSelector} from 'react-redux'
 import {setRoster, updateSpecialization} from './actions/roster.actions'
+import {Icon} from './components/Icon/Icon.component.js';
 
 const Roster = () => {
   const dispatch = useDispatch();
@@ -28,8 +29,7 @@ const Roster = () => {
   const specializationIcon = (specialization, key) => {
     return (
       <div className="specialization" key={key}>
-        <img className="icon" src={specialization.icon} width={30}
-             title={specialization.name} onContextMenu={(e) => e.preventDefault()}
+        <Icon src={specialization.icon} width={30} title={specialization.name} onContextMenu={(e) => e.preventDefault()}
              onMouseUp={(e) => handleSpecializationClick(e, specialization)}
              style={{opacity: (specialization.amount > 0) ? 1 : 0.1}}/>
 
@@ -71,7 +71,7 @@ const Roster = () => {
             .map((playableClass, i) => (
             <tr key={i}>
               <td>
-                <img className="icon" src={playableClass.icon} width={30} title={playableClass.name}/>
+                <Icon src={playableClass.icon} width={30} title={playableClass.name}/>
                 <div className="class-name">
                   {playableClass.name}
                 </div>

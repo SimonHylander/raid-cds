@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import './App.css';
-import {Tabs} from './components/Tab/Tabs'
-import {Tab} from './components/Tab/Tab'
+import {Tabs} from './components/Tab'
+import {Tab} from './components/Tab'
 import Roster from './Roster'
 import Calculator from './Calculator'
 
 const App = () => {
-  const [activeTab, setActiveTab] = useState('roster');
+  const [activeTab] = useState('roster');
 
   return (
     <div className="page-container">

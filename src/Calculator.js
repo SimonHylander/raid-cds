@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react';
-import {PlusCircle} from 'react-feather';
-import {getToken} from './api/battlenet/'
-import {useSelector} from 'react-redux';
-import {updateSpecialization} from './actions/roster.actions.js';
+import React, {useState, useEffect} from 'react'
+import {PlusCircle} from 'react-feather'
+import {useSelector} from 'react-redux'
+import moment from 'moment'
+import {Icon} from './components/Icon/Icon.component.js'
 
 const Calculator = () => {
   const [timestamp, setTimestamp] = useState('');
@@ -46,17 +46,55 @@ const Calculator = () => {
   useEffect(() => {
     loadCooldowns();
 
-    setTimestamps([
-      '0:17',
-      '0:50',
-      '01:25',
-      '02:43',
-      '03:16',
-      '03:53',
-      '05:07',
-      '05:41',
-      '06:12',
-    ]);
+    let t = [
+      {
+        minute: 0,
+        second: 17
+      },
+      {
+        minute: 0,
+        second: 50
+      },
+      {
+        minute: 1,
+        second: 25
+      },
+      {
+        minute: 2,
+        second: 43
+      },
+      {
+        minute: 3,
+        second: 16
+      },
+      {
+        minute: 3,
+        second: 53
+      },
+      {
+        minute: 5,
+        second: 7
+      },
+      {
+        minute: 5,
+        second: 41
+      },
+      {
+        minute: 6,
+        second: 12
+      }
+    ];
+
+    let dates = [];
+
+    t.forEach(timestamps => {
+      let date = moment();
+      date.set({hour: 0, minute: timestamps.minute, second: timestamps.second, millisecond: 0});
+      dates.push(date.format('mm:ss'));
+    });
+
+    setTimestamps(dates);
+
   }, [roster]);
 
   return (
@@ -121,7 +159,7 @@ const Calculator = () => {
                 <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   {cooldowns.map((cooldown, i) => (
                     <a className="dropdown-item" href="#" key={i}>
-                      <img className="icon" src={cooldown.icon} width={20} title={cooldown.name}/>
+                      <Icon src={cooldown.icon} width={20} title={cooldown.name}/>
                       <span>{cooldown.name} {cooldown.amount > 1 && `x${cooldown.amount}`}</span>
                     </a>
                   ))}
