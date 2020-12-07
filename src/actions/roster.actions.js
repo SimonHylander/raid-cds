@@ -1,7 +1,7 @@
 import {
   SET_ROSTER,
   UPDATE_SPECIALIZATION
-} from "../types/roster.types";
+} from '../types/roster.types';
 
 export function setRoster(classes) {
   return (dispatch) => {

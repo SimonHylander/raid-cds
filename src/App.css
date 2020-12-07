@@ -4,16 +4,6 @@ body {
   min-height: 100vh;
 }
 
-/*.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: white;
-}*/
-
 h1 {
   text-align: center;
 }
@@ -29,14 +19,19 @@ h1 {
   color: #FFF;
 }
 
-/*.panel {
-  position: relative;
-  margin-top: 2rem;
-  background-color: #232323;
-  border: 1px solid rgba(28,36,43,.6);
-  border-radius: 6px;
-  min-height: 25rem;
-}*/
+.icon {
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.btn-primary {
+  background-color: #413c4b !important;
+  border-color: #413c4b !important;
+}
+
+.btn-primary:focus {
+  box-shadow: 0 0 0 0.2rem rgba(65,60,75,.5) !important;
+}
 
 .nav-tabs {
   border-bottom: 2px solid #413c4b !important;
@@ -57,14 +52,12 @@ h1 {
   border-color: #413c4b !important;
 }
 
-.tab-content .tab-pane {
-  padding: 1rem;
+.dropdown-item {
+  padding: .25rem 0.5rem !important;
 }
 
-
-.class-table tbody tr td img {
-  cursor: pointer;
-  margin-right: 10px;
+.tab-content .tab-pane {
+  padding: 1rem;
 }
 
 .class-table .class-name {

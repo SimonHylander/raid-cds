@@ -12,58 +12,13 @@ export const getToken = () => {
   }).then(response => response)
 }
 
-export const getClasses = (token, region) => {
-  let classIds = [6, 12, 11, 3, 8, 10, 2, 5, 4, 7, 9, 1];
-  let promises = [];
+export * from './class.api';
 
-  classIds.forEach((classId) => {
-    let href = `https://${region}.api.blizzard.com/data/wow/playable-class/${classId}?namespace=static-eu&locale=en_US&access_token=${token.data.access_token}`;
 
-    promises.push(
-      axios.get(href, {
-        headers: {
-          Authorization: 'Bearer ' + token.data.access_token
-        }
-      })
-      .then(response =>  response.data)
-    );
-  });
 
-  return Promise.all(promises);
-}
-
-export const getClassMedia = (token, region, classId) => {
-  let href = `https://${region}.api.blizzard.com/data/wow/media/playable-class/${classId}?namespace=static-eu&locale=en_US&access_token=${token.data.access_token}`;
-
-  return axios.get(href, {
-    headers: {
-      Authorization: 'Bearer ' + token.data.access_token
-    }
-  }).then(response => response.data).catch(error => error)
-}
-
-export const getSpell = (token, region, spellId) => {
-  let href = `https://${region}.api.blizzard.com/data/wow/spell/${spellId}?namespace=static-eu&locale=en_US&access_token=${token.data.access_token}`;
-
-  return axios.get(href, {
-    headers: {
-      Authorization: 'Bearer ' + token.data.access_token
-    }
-  }).then(response => response.data).catch(error => error)
-}
-
-export const getSpellMedia = (token, region, spellId) => {
-  let href = `https://${region}.api.blizzard.com/data/wow/media/spell/${spellId}?namespace=static-eu&locale=en_US&access_token=${token.data.access_token}`;
-
-  return axios.get(href, {
-    headers: {
-      Authorization: 'Bearer ' + token.data.access_token
-    }
-  }).then(response => response.data).catch(error => error)
-}
 
 export const getCharacterProfile = (token, region, realm, characterName) => {
-  let href = 'https://cors-anywhere.herokuapp.com/https://' + region + '.api.blizzard.com/wow/character/' +  realm + '/' + characterName + '?fields=appearance&access_token=' + token.data.access_token
+  let href = 'https://' + region + '.api.blizzard.com/profile/wow/character/' + realm + '/' + characterName + '?namespace=profile-eu&locale=en_US&access_token=' + token.data.access_token
 
   return axios.get(href, {
     headers: {
@@ -72,22 +27,25 @@ export const getCharacterProfile = (token, region, realm, characterName) => {
   }).then(response => response.data).catch(error => error)
 }
 
-export async function getRealmList(){
+export async function getRealmList() {
   let token = await getToken();
-  let href = 'https://cors-anywhere.herokuapp.com/https://eu.api.blizzard.com/wow/realm/status?access_token=' + token.data.access_token
+  // let href = 'https://eu.api.blizzard.com/wow/realm/status?access_token=' + token.data.access_token
+  let href = 'https://eu.api.blizzard.com/data/wow/realm/index?namespace=dynamic-eu&locale=en_US&access_token=' + token.data.access_token;
+
   return axios.get(href, {
     headers: {
       Authorization: 'Bearer ' + token.data.access_token
     }
   }).then(response => {
-    return getEuRealmNames(response.data.realms)
+    return response.data
+    //return getEuRealmNames(response.data.realms)
   })
 }
 
 const getEuRealmNames = realms => {
   let list = []
   Object.values(realms).forEach(value => {
-    if (value["locale"] ===  "en_GB"){
+    if (value["locale"] === "en_GB") {
       list.push(value["name"])
     }
   })
