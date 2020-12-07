@@ -6,7 +6,7 @@ import {Icon} from './components/Icon/Icon.component.js'
 
 const Calculator = () => {
   const [timestamp, setTimestamp] = useState('');
-  const [timestamps, setTimestamps] = useState([]);
+  const [time, setTime] = useState([]);
   const [cooldowns, setCooldowns] = useState([]);
 
   const roster = useSelector(state => state.roster.classes);
@@ -16,7 +16,7 @@ const Calculator = () => {
       return;
 
     setTimestamp('');
-    setTimestamps([...timestamps, timestamp]);
+    setTime([...time, timestamp]);
   }
 
   const loadCooldowns = async () => {
@@ -43,10 +43,16 @@ const Calculator = () => {
     setCooldowns(cooldowns);
   }
 
+  const addAbility = (timestamp, ability) => {
+    timestamp.cooldowns.push(ability);
+
+    setTime([...time])
+  }
+
   useEffect(() => {
     loadCooldowns();
 
-    let t = [
+    let timestamps = [
       {
         minute: 0,
         second: 17
@@ -85,15 +91,19 @@ const Calculator = () => {
       }
     ];
 
-    let dates = [];
+    let time = [];
 
-    t.forEach(timestamps => {
+    timestamps.forEach(timestamp => {
       let date = moment();
-      date.set({hour: 0, minute: timestamps.minute, second: timestamps.second, millisecond: 0});
-      dates.push(date.format('mm:ss'));
+      date.set({hour: 0, minute: timestamp.minute, second: timestamp.second, millisecond: 0});
+
+      time.push({
+        time: date.format('mm:ss'),
+        cooldowns: []
+      });
     });
 
-    setTimestamps(dates);
+    setTime(time);
 
   }, [roster]);
 
@@ -126,20 +136,20 @@ const Calculator = () => {
           <div className="container">
             <div className="row">
               <div className="col">
-                <button type="button" className="col-6 btn btn-secondary btn-sm float-left"
-                        onClick={() => setTimestamps([])}>
+                <button type="button" className="btn btn-secondary btn-sm float-left"
+                        onClick={() => setTime([])}>
                   Reset
                 </button>
               </div>
               <div className="col">
-                <button type="button" className="col-6 btn btn-primary btn-sm float-right">Submit</button>
+                <button type="button" className="btn btn-primary btn-sm float-right">Submit</button>
               </div>
             </div>
           </div>
         </div>
       </form>
 
-      {timestamps.length > 0 &&
+      {time.length > 0 &&
       <table className="table">
         <thead>
         <tr>
@@ -148,19 +158,28 @@ const Calculator = () => {
         </tr>
         </thead>
         <tbody>
-        {timestamps.map((timestamp, i) => (
+        {time.map((timestamp, i) => (
           <tr key={i}>
-            <td>{timestamp}</td>
-            <td>
-              <div className="dropdown">
-                <PlusCircle size={20} color="white" style={{cursor: 'pointer'}} title="Assign"
-                            data-toggle="dropdown" aria-haspopup="true"/>
+            <td>{timestamp.time}</td>
 
-                <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  {cooldowns.map((cooldown, i) => (
-                    <a className="dropdown-item" href="#" key={i}>
-                      <Icon src={cooldown.icon} width={20} title={cooldown.name}/>
-                      <span>{cooldown.name} {cooldown.amount > 1 && `x${cooldown.amount}`}</span>
+            <td>
+              {timestamp.cooldowns.map((ability, i) =>
+                <span key={i}><Icon src={ability.icon} width={20}/></span>
+              )}
+
+              <div className="dropdown">
+                <PlusCircle size={20}
+                            color="white"
+                            title="Assign"
+                            data-toggle="dropdown"
+                            style={{cursor: 'pointer'}}
+                />
+
+                <div className="dropdown-menu">
+                  {cooldowns.map((ability, i) => (
+                    <a className="dropdown-item" href="#" key={i} onClick={() => addAbility(timestamp, ability)}>
+                      <Icon src={ability.icon} width={20} title={ability.name}/>
+                      <span>{ability.name} {ability.amount > 1 && `x${ability.amount}`}</span>
                     </a>
                   ))}
                 </div>
