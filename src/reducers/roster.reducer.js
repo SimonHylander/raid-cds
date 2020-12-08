@@ -14,9 +14,9 @@ const Roster = (state = initialState, action) => {
     case SET_ROSTER: {
       var classes = [];
 
-      action.classes.forEach(cls => {
-        cls.specializations.map(specialization => specialization.amount = 0);
-        classes.push(cls);
+      action.classes.forEach(playableClass => {
+        playableClass.specializations.map(specialization => specialization.amount = 0);
+        classes.push(playableClass);
       });
 
       state.classes = classes;
@@ -27,14 +27,14 @@ const Roster = (state = initialState, action) => {
     case UPDATE_SPECIALIZATION: {
       let classes = [];
 
-      [...state.classes].forEach(cls => {
-        for (let i = 0; i < cls.specializations.length; i++) {
-          if (cls.specializations[i].id === action.specialization.id) {
-            cls.specializations[i] = action.specialization;
+      [...state.classes].forEach(playableClass => {
+        for (let i = 0; i < playableClass.specializations.length; i++) {
+          if (playableClass.specializations[i].id === action.specialization.id) {
+            playableClass.specializations[i] = action.specialization;
           }
         }
 
-        classes.push(cls);
+        classes.push(playableClass);
       });
 
       state.classes = classes;

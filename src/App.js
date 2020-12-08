@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
-import './App.css';
+import React, {useState} from 'react'
+import './App.css'
 import {Tabs} from './components/Tab'
 import {Tab} from './components/Tab'
-import Roster from './Roster'
-import Calculator from './Calculator'
+import {Roster} from './components/Roster/'
+import {Calculator} from './components/Calculator/'
 
 const App = () => {
   const [activeTab] = useState('roster');
@@ -12,7 +12,7 @@ const App = () => {
     <div className="page-container">
       <div className="container-fluid">
         <div className="main">
-          <h1>Raid Cooldown Calculator</h1>
+          {/*<h1>Raid Cooldown Calculator</h1>*/}
 
           <Tabs activeKey={activeTab}>
             <Tab tabKey="roster" title="Roster">
