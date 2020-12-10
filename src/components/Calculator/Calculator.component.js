@@ -4,9 +4,16 @@ import {useSelector} from 'react-redux'
 import moment from 'moment'
 import classNames from 'classnames';
 import {Icon} from '../Icon/Icon.component.js'
-import {Dropdown, DropdownItem, DropdownMenu, DropdownToggle} from 'reactstrap';
+import {Dropdown as RSDropdown, DropdownItem, DropdownMenu, DropdownToggle} from 'reactstrap';
+import {getRaids, getEncounter, getInstance} from '../../api/battlenet/journal.api.js';
+import {getToken} from '../../api/battlenet';
+import {Dropdown} from '../Dropdown';
 
 export const Calculator = () => {
+  const [raids, setRaids] = useState([]);
+  const [encounters, setEncounters] = useState([]);
+  const [selectedEncounter, setSelectedEncounter] = useState(null);
+
   const [timeText, setTimeText] = useState('');
   const [time, setTime] = useState([]);
   const [cooldowns, setCooldowns] = useState([]);
@@ -41,8 +48,6 @@ export const Calculator = () => {
 
     let date = moment();
     date.set({hour: 0, minute: 0, second: 0, millisecond: 0});
-
-
 
     if (date.isAfter(lastDate)) {
       setTime([...time, {
@@ -112,6 +117,31 @@ export const Calculator = () => {
     setCooldowns(cooldowns);
   }
 
+  const loadRaids = async () => {
+    let token = await getToken();
+    getRaids(token, 'eu', 499)
+      .then(raids => setRaids(raids));
+  }
+
+  const handleRaidChange = async (raid) => {
+    let token = await getToken();
+    getInstance(token, 'eu', raid.id)
+      .then(instance => setEncounters(instance.encounters))
+      .catch(() => setEncounters([]));
+  }
+
+  const handleEncounterChange = async (encounter) => {
+    let token = await getToken();
+    getEncounter(token, 'eu', encounter.id)
+      .then(encounter => setSelectedEncounter(encounter));
+  }
+
+  useEffect(() => {
+    loadRaids();
+  }, [])
+
+  useEffect(() => console.log(selectedEncounter), [selectedEncounter])
+
   useEffect(() => {
     loadCooldowns();
 
@@ -175,6 +205,16 @@ export const Calculator = () => {
     <div className="row justify-content-center align-items-center h-100">
       <form>
         <div className="form-group">
+          <Dropdown options={raids} placeholder="Choose Raid" onChange={handleRaidChange}/>
+        </div>
+
+        { encounters.length > 0 &&
+          <div className="form-group">
+            <Dropdown options={encounters} placeholder="Choose Encounter" onChange={handleEncounterChange}/>
+          </div>
+        }
+
+        <div className="form-group">
           <div className="input-group mb-3">
             <input type="text"
                    className="form-control"
@@ -230,7 +270,7 @@ export const Calculator = () => {
 
             <td>
               <div className="d-flex flex-row-reverse">
-                <Dropdown isOpen={timestamp.isOpen} toggle={() => toggleDropdown(timestamp)}>
+                <RSDropdown isOpen={timestamp.isOpen} toggle={() => toggleDropdown(timestamp)}>
                   <DropdownToggle
                     tag="div"
                     className={classNames({toggle: true, disabled: isToggleDisabled(timestamp)})}
@@ -252,21 +292,11 @@ export const Calculator = () => {
                       )
                     })}
                   </DropdownMenu>
-                </Dropdown>
+                </RSDropdown>
 
                 {timestamp.cooldowns.sort(nameSortDesc)
                   .map((ability, i) =>
                     <Icon src={ability.icon} width={20} title={ability.name} key={i}/>)}
-
-                {/*<div className="dropdown">
-                  <a href="" title="Assign" data-toggle="dropdown">
-                    <PlusCircle size={20} color="white"/>
-                  </a>
-
-                  <div className="dropdown-menu">
-
-                  </div>
-                </div>*/}
               </div>
             </td>
           </tr>

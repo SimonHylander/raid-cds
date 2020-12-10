@@ -7,11 +7,13 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.0",
+    "classnames": "^2.2.6",
     "client-oauth2": "^4.3.3",
     "cors": "^2.8.5",
     "moment": "^2.29.1",
     "passport-bnet": "^2.0.0",
     "passport-oauth2": "^1.5.0",
+    "rambda": "^6.4.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-dropdown": "^1.9.0",
@@ -23,6 +25,7 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
+    "styled-components": "^5.2.1",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
