@@ -1,0 +1,115 @@
+body {
+  font-family: 'Montserrat', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #282c34;
+  color: #FFFFFF;
+  min-height: 100vh;
+}
+
+h1 {
+  text-align: center;
+}
+
+.page-container {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 88rem;
+  padding: 2rem 4rem;
+}
+
+.table {
+  color: #FFF;
+}
+
+.icon {
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.btn-primary {
+  background-color: #413c4b !important;
+  border-color: #413c4b !important;
+}
+
+.btn-primary:focus {
+  box-shadow: 0 0 0 0.2rem rgba(65,60,75,.5) !important;
+}
+
+.nav-tabs {
+  border-bottom: 2px solid #413c4b !important;
+}
+
+.nav-tabs .nav-item .nav-link {
+  color: #FFFFFF !important;
+}
+
+.nav-tabs .nav-item .nav-link:hover {
+  color: #FFFFFF !important;
+  border-color: #413c4b !important;
+  cursor: pointer;
+}
+
+.nav-tabs .nav-item .active {
+  background-color: #413c4b !important;
+  border-color: #413c4b !important;
+}
+
+.dropdown-item {
+  padding: .25rem 0.5rem !important;
+}
+
+.dropdown-item:hover {
+  background-color: #b2a8c7;
+}
+
+.tab-content .tab-pane {
+  padding: 1rem;
+}
+
+table thead tr th {
+  border-width: 1px !important;
+}
+
+table tbody tr td {
+  border: 0 !important;
+}
+
+.class-table .class-name {
+  font-size: 18px;
+  display: inline-block;
+}
+
+.class-table .specialization {
+  position: relative;
+  display: inline-block;
+}
+
+.class-table .specialization-amount {
+  position: absolute;
+  left: 15px;
+  top: -10px;
+  font-size: 16px;
+  width: 1.5em;
+  height: 1.5em;
+  box-sizing: initial;
+  background-color: #000;
+  color: yellow;
+  text-align: center;
+  border-radius: 50%;
+  line-height: 1.5em;
+  box-sizing: content-box;
+}
+
+.calculator-table .dropdown {
+  /*margin-left: auto;*/
+}
+
+.calculator-table .dropdown .toggle {
+  cursor: pointer;
+}
+
+.calculator-table .dropdown .toggle.disabled {
+  cursor: not-allowed;
+  opacity: 0.1;
+}
