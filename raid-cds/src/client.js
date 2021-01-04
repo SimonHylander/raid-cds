@@ -3,7 +3,7 @@ import {BrowserRouter} from 'react-router-dom';
 import React from 'react';
 import {hydrate} from 'react-dom';
 import {Provider} from 'react-redux';
-import configureStore from '../../src/store/configureStore.js';
+import configureStore from './store/configureStore';
 import client from './api/warcraftlogs/client.js';
 
 const store = configureStore(window.__PRELOADED_STATE__);

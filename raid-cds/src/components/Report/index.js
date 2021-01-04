@@ -1,1 +1,1 @@
-export * from './Log.component'
+export * from './ReportLoader.component'

@@ -3,8 +3,8 @@ const axios = require('axios');
 export const getToken = () => {
   return axios.get(`https://eu.battle.net/oauth/token`, {
     auth: {
-      username: process.env.REACT_APP_BNET_ID,
-      password: process.env.REACT_APP_BNET_SECRET,
+      username: process.env.RAZZLE_BNET_ID,
+      password: process.env.RAZZLE_BNET_SECRET,
     },
     params: {
       grant_type: 'client_credentials',
@@ -13,9 +13,6 @@ export const getToken = () => {
 }
 
 export * from './class.api';
-
-
-
 
 export const getCharacterProfile = (token, region, realm, characterName) => {
   let href = 'https://' + region + '.api.blizzard.com/profile/wow/character/' + realm + '/' + characterName + '?namespace=profile-eu&locale=en_US&access_token=' + token.data.access_token

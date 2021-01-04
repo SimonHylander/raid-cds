@@ -10,6 +10,7 @@ export const Roster = () => {
 
   const loadClasses = async () => {
     let token = await getToken();
+
     getClasses(token, 'eu').then(classes => {
       dispatch(setRoster(classes));
     });

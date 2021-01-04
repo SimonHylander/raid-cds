@@ -1,15 +1,10 @@
-import React, {useState, useEffect, Fragment} from 'react';
-import {PlusCircle} from 'react-feather';
+import React, {useState, useEffect} from 'react';
 import {useSelector} from 'react-redux';
 import moment from 'moment';
-import classNames from 'classnames';
-import {Icon} from '../Icon/Icon.component.js';
-import {Dropdown as RSDropdown, DropdownItem, DropdownMenu, DropdownToggle} from 'reactstrap';
 import {getRaids, getEncounter, getInstance} from '../../api/battlenet/journal.api.js';
 import {getToken} from '../../api/battlenet';
 import {Dropdown} from '../Dropdown';
 import {Encounter} from '../Encounter';
-import {Report} from '../Report/Report.component.js';
 
 export const Calculator = () => {
   const [raids, setRaids] = useState([]);
@@ -202,8 +197,6 @@ export const Calculator = () => {
 
   return (
     <React.Fragment>
-      <Report/>
-
       <div className="row mb-4">
         <div className="col-md-3">
           <Dropdown options={raids} placeholder="Choose Raid" onChange={handleRaidChange}/>
@@ -257,59 +250,61 @@ export const Calculator = () => {
           </React.Fragment>
         }
       </div>
+
       {selectedEncounter && <Encounter encounter={selectedEncounter}/>}
-    <div>
-        {time.length > 0 &&
-        <table className="table calculator-table">
-          <thead>
-          <tr>
-            <th>Time</th>
-            <th width={200}>Cooldown</th>
-          </tr>
-          </thead>
-          <tbody>
-          {time.map((timestamp, i) => (
-            <tr key={i}>
-              <td>{timestamp.time}</td>
 
-              <td>
-                <div className="d-flex flex-row-reverse">
-                  <RSDropdown isOpen={timestamp.isOpen} toggle={() => toggleDropdown(timestamp)}>
-                    <DropdownToggle
-                      tag="div"
-                      className={classNames({toggle: true, disabled: isToggleDisabled(timestamp)})}
-                      title="Assign">
-                      <PlusCircle size={20} color="white"/>
-                    </DropdownToggle>
-
-                    <DropdownMenu>
-                      {isAllAssigned(timestamp) === 0 && <DropdownItem tag="div">No abilities available</DropdownItem>}
-
-                      {cooldowns.map((ability, i) => {
-                        if (ability.amount === 0 || remainingAmount(timestamp, ability) === 0) return <Fragment
-                          key={i}/>;
-
-                        return (
-                          <a className="dropdown-item" href="#" key={i} onClick={() => addAbility(timestamp, ability)}>
-                            <Icon src={ability.icon} width={20} title={ability.name}/>
-                            <span>{ability.name} {ability.amount > 1 && `x${ability.amount}`}</span>
-                          </a>
-                        )
-                      })}
-                    </DropdownMenu>
-                  </RSDropdown>
-
-                  {timestamp.cooldowns.sort(nameSortDesc)
-                    .map((ability, i) =>
-                      <Icon src={ability.icon} width={20} title={ability.name} key={i}/>)}
-                </div>
-              </td>
+      {/*<div>
+          {time.length > 0 &&
+          <table className="table calculator-table">
+            <thead>
+            <tr>
+              <th>Time</th>
+              <th width={200}>Cooldown</th>
             </tr>
-          ))}
-          </tbody>
-        </table>
-        }
-      </div>
+            </thead>
+            <tbody>
+            {time.map((timestamp, i) => (
+              <tr key={i}>
+                <td>{timestamp.time}</td>
+
+                <td>
+                  <div className="d-flex flex-row-reverse">
+                    <RSDropdown isOpen={timestamp.isOpen} toggle={() => toggleDropdown(timestamp)}>
+                      <DropdownToggle
+                        tag="div"
+                        className={classNames({toggle: true, disabled: isToggleDisabled(timestamp)})}
+                        title="Assign">
+                        <PlusCircle size={20} color="white"/>
+                      </DropdownToggle>
+
+                      <DropdownMenu>
+                        {isAllAssigned(timestamp) === 0 && <DropdownItem tag="div">No abilities available</DropdownItem>}
+
+                        {cooldowns.map((ability, i) => {
+                          if (ability.amount === 0 || remainingAmount(timestamp, ability) === 0) return <Fragment
+                            key={i}/>;
+
+                          return (
+                            <a className="dropdown-item" href="#" key={i} onClick={() => addAbility(timestamp, ability)}>
+                              <Icon src={ability.icon} width={20} title={ability.name}/>
+                              <span>{ability.name} {ability.amount > 1 && `x${ability.amount}`}</span>
+                            </a>
+                          )
+                        })}
+                      </DropdownMenu>
+                    </RSDropdown>
+
+                    {timestamp.cooldowns.sort(nameSortDesc)
+                      .map((ability, i) =>
+                        <Icon src={ability.icon} width={20} title={ability.name} key={i}/>)}
+                  </div>
+                </td>
+              </tr>
+            ))}
+            </tbody>
+          </table>
+          }
+        </div>*/}
     </React.Fragment>
   )
 }

@@ -16,6 +16,17 @@ export const getToken = () => {
   return axios.post(`/api/authenticate`).then(response => response)
 }
 
-export const getFights = (code) => {
-  return axios.get(`/api/reports/${code}`).then(response => response);
+export const getFights = (code, fight) => {
+  let url = `/api/reports/${code}`;
+
+  if (fight) {
+    url += `?fight=${fight}`;
+  }
+
+  return axios.get(url).then(response => response.data);
+}
+
+export const getEvents = async (code, startTime, endTime) => {
+  let url = `/api/reports/${code}/events?startTime=${startTime}&endTime=${endTime}`;
+  return await axios.get(url).then(response => response.data);
 }
